@@ -41,14 +41,14 @@ def main() -> int:
             # Focus
             for _ in rich.progress.track(
                 range(args.focus_time * 60),
-                description=f"Focusing ({args.focus_time} min.)"
+                description=f"Focusing ({args.focus_time} min)..."
             ):
                 time.sleep(1)
 
             # Break
             for _ in rich.progress.track(
                 range(args.break_time * 60),
-                description=f"Taking a break ({args.break_time} min.)"
+                description=f"Resting ({args.break_time} min)..."
             ):
                 time.sleep(1)
     except KeyboardInterrupt:
