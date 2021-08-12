@@ -20,11 +20,15 @@ def sleep_and_track(seconds: int, description: str) -> None:
     if seconds < 0:
         raise ValueError
 
-    for _ in rich.progress.track(
-        range(seconds),
-        description=description
-    ):
-        time.sleep(1)
+    with rich.progress.Progress(transient=True) as progress:
+        task = progress.add_task(description, total=seconds)
+
+        while not progress.finished:
+            progress.update(
+                task,
+                advance=1,
+            )
+            time.sleep(1)
 
 
 def main() -> int:
@@ -55,11 +59,11 @@ def main() -> int:
         while True:
             sleep_and_track(
                 args.focus_time * 60,
-                f"Focusing ({args.focus_time} min)"
+                f"Focusing"
             )
             sleep_and_track(
                 args.break_time * 60,
-                f"Resting ({args.break_time} min)"
+                f"Resting"
             )
     except KeyboardInterrupt:
         # Catch this to remove Python's ugly exception.
