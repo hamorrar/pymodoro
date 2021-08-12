@@ -6,6 +6,20 @@ A simple Pomodoro timer in Python.
 
 # Usage
 
+The output of `$ python pymodoro --help` is:
+
+```
+usage: pymodoro.py [-h] focus break
+
+positional arguments:
+  focus       the number of minutes to spend focused
+  break       the number of minutes to spend resting
+
+optional arguments:
+  -h, --help  show this help message and exit
+```
+
+For example,
 ```
 $ python pymodoro.py 25 5
 ```
