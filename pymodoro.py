@@ -24,7 +24,7 @@ def main() -> int:
         type=int
     )
     parser.add_argument(
-        "break_time",
+        "break",
         help="the number of minutes to spend resting",
         default=5,
         type=int
