@@ -13,6 +13,20 @@ def print_error(*args, **kwargs):
     print(*args, file=sys.stdout, **kwargs)
 
 
+def sleep_and_track(seconds: int, description: str) -> None:
+    """
+    Sleep for a given number of seconds and display a progress bar.
+    """
+    if seconds < 0:
+        raise ValueError
+
+    for _ in rich.progress.track(
+        range(seconds),
+        description=description
+    ):
+        time.sleep(1)
+
+
 def main() -> int:
     # Parse arguments.
     parser = argparse.ArgumentParser()
@@ -39,19 +53,14 @@ def main() -> int:
     # Pomodoro
     try:
         while True:
-            # Focus
-            for _ in rich.progress.track(
-                range(args.focus_time * 60),
-                description=f"Focusing ({args.focus_time} min)..."
-            ):
-                time.sleep(1)
-
-            # Break
-            for _ in rich.progress.track(
-                range(args.break_time * 60),
-                description=f"Resting ({args.break_time} min)..."
-            ):
-                time.sleep(1)
+            sleep_and_track(
+                args.focus_time * 60,
+                f"Focusing ({args.focus_time} min)"
+            )
+            sleep_and_track(
+                args.break_time * 60,
+                f"Resting ({args.break_time} min)"
+            )
     except KeyboardInterrupt:
         # Catch this to remove Python's ugly exception.
         return 0
