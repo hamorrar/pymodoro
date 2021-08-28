@@ -53,14 +53,23 @@ def main() -> int:
     # Pomodoro
     try:
         while True:
+            # FOCUS
+            if args.focus_time > 1:
+                output = f"Focusing ({args.focus_time} mins)"
+            else:
+                output = f"Focusing ({args.focus_time} min)"
+
             sleep_and_track(
-                args.focus_time * 60,
-                f"Focusing ({args.focus_time} min)"
-            )
-            sleep_and_track(
-                args.break_time * 60,
-                f"Resting ({args.break_time} min)"
-            )
+                args.focus_time * 60, output)
+            
+            # BREAK
+            if args.break_time > 1:
+                output = f"Resting ({args.break_time} mins)"
+            else:
+                output = f"Resting ({args.break_time} min)"
+
+            sleep_and_track(args.break_time * 60, output)
+            
     except KeyboardInterrupt:
         # Catch this to remove Python's ugly exception.
         return 0
