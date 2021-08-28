@@ -29,5 +29,5 @@ $ python pymodoro.py 25 5
 There is one dependency, [rich](https://pypi.org/project/rich/). To install use
 
 ```
-pip install -r < ./requirements.txt
+pip install -r ./requirements.txt
 ```
