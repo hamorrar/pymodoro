@@ -4,7 +4,9 @@ A small Pomodoro timer in Python.
 
 import argparse
 import sys
+import signal
 import time
+from typing import NoReturn
 
 import rich.progress
 
@@ -32,6 +34,11 @@ def sleep_and_track(seconds: int, description: str) -> None:
 
 
 def main() -> int:
+    # Exit quietly upon SIGINT.
+    def handle_SIGINT(*_) -> NoReturn:
+        quit()
+    signal.signal(signal.SIGINT, handle_SIGINT)
+
     # Parse arguments.
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -55,19 +62,14 @@ def main() -> int:
         return 1
 
     # Pomodoro
-    try:
-        while True:
-            # Focus
-            description = "Focusing ({} min{})".format(args.focus_time, "s" if args.focus_time > 1 else "")
-            sleep_and_track(args.focus_time * 60, description)
-            # Break
+    while True:
+        # Focus
+        description = "Focusing ({} min{})".format(args.focus_time, "s" if args.focus_time > 1 else "")
+        sleep_and_track(args.focus_time * 60, description)
+        # Break
 
-            description = "Focusing ({} min{})".format(args.break_time, "s" if args.break_time > 1 else "")
-            sleep_and_track(args.break_time * 60, description)
-
-    except KeyboardInterrupt:
-        # Catch this to remove Python's ugly exception.
-        return 0
+        description = "Focusing ({} min{})".format(args.break_time, "s" if args.break_time > 1 else "")
+        sleep_and_track(args.break_time * 60, description)
 
 
 if __name__ == "__main__":
