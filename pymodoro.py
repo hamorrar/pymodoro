@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 A small Pomodoro timer in Python.
 """
