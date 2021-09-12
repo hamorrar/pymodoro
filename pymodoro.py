@@ -3,6 +3,15 @@
 A small Pomodoro timer in Python.
 """
 
+"""
+I am trying to add a bit more functionality to the program by allowing the user to exit the infinite pomodoro loop with a 'q' keystroke.  This way I can count the number of focus/break cycles the user did and append the data in a txt file with so I can do some simple data analysis like number of cycles completed per week or number of minutes worked per week.
+
+But I am having trouble working with the rich.progress bar. I'm not sure if it's having trouble due to the terminal being occupied by the timer and not letting the process read and process keyboard input while the bar is working.
+
+Ctrl-c would kill the program and not be incredibly user friendly than a quick 'q' for quit, but I suppose still operational if the keyboard interrupt error is caught and ignored.
+
+Still working on it.
+"""
 import argparse
 import sys
 import signal
